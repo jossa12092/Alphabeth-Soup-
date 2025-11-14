@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Morning Routine Word Search + Writing (First Person)</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f5f7ff, #e3f6ff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      background: #ffffffee;
+      margin: 20px;
+      padding: 20px 24px 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      border-left: 4px solid #3a7bd5;
+      padding-left: 10px;
+    }
+    .instructions {
+      background: #f3f9ff;
+      border-left: 4px solid #3a7bd5;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+    table.word-grid {
+      border-collapse: collapse;
+      margin: 0 auto;
+      user-select: none;
+    }
+    .word-grid td {
+      border: 1px solid #cfd8dc;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      font-size: 1rem;
+    }
+    .word-grid td:hover {
+      background: #e3f2fd;
+      transform: scale(1.03);
+    }
+    .word-grid td.selected {
+      background: #ffe082;
+    }
+    .word-grid td.solution {
+      background: #81c784;
+      color: #fff;
+    }
+    .panel {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: inset 0 0 0 1px #e0e0e0;
+      font-size: 0.95rem;
+      margin-top: 12px;
+    }
+    .word-list {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 0.95rem;
+    }
+    .word-list li.found {
+      text-decoration: line-through;
+      color: #2e7d32;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: #3a7bd5;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      margin-right: 6px;
+      margin-top: 8px;
+    }
+    button.secondary {
+      background: #eceff1;
+      color: #37474f;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 500;
+    }
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      border-radius: 10px;
+      border: 1px solid #cfd8dc;
+      padding: 10px;
+      font-size: 0.95rem;
+    }
+    .result-item {
+      background: #f5f5f5;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .result-item.good {
+      border-left: 4px solid #2e7d32;
+    }
+    .result-item.bad {
+      border-left: 4px solid #c62828;
+    }
+    .mini-title {
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .formula {
+      background: #e8f1ff;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 6px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Morning Routine Activity</h1>
+  <p class="subtitle">Word Search + Writing in First Person (Present Simple)</p>
+
+  <h2 class="section-title">Part 1 – Word Search</h2>
+  <p class="instructions">
+    Haz clic en las letras de cada palabra que encuentres. Luego presiona <strong>“Check words”</strong> para comprobar si la selección corresponde a una palabra completa.
+  </p>
+
+  <table class="word-grid">
+    <tbody>
+      <tr><td data-row="0" data-col="0">S</td><td data-row="0" data-col="1">H</td><td data-row="0" data-col="2">O</td><td data-row="0" data-col="3">W</td><td data-row="0" data-col="4">E</td><td data-row="0" data-col="5">R</td><td data-row="0" data-col="6">E</td><td data-row="0" data-col="7">B</td><td data-row="0" data-col="8">A</td><td data-row="0" data-col="9">T</td><td data-row="0" data-col="10">H</td><td data-row="0" data-col="11">O</td></tr>
+      <tr><td data-row="1" data-col="0">M</td><td data-row="1" data-col="1">S</td><td data-row="1" data-col="2">I</td><td data-row="1" data-col="3">Y</td><td data-row="1" data-col="4">I</td><td data-row="1" data-col="5">U</td><td data-row="1" data-col="6">I</td><td data-row="1" data-col="7">M</td><td data-row="1" data-col="8">S</td><td data-row="1" data-col="9">G</td><td data-row="1" data-col="10">B</td><td data-row="1" data-col="11">H</td></tr>
+      <tr><td data-row="2" data-col="0">M</td><td data-row="2" data-col="1">C</td><td data-row="2" data-col="2">A</td><td data-row="2" data-col="3">T</td><td data-row="2" data-col="4">S</td><td data-row="2" data-col="5">Y</td><td data-row="2" data-col="6">C</td><td data-row="2" data-col="7">A</td><td data-row="2" data-col="8">D</td><td data-row="2" data-col="9">V</td><td data-row="2" data-col="10">B</td><td data-row="2" data-col="11">S</td></tr>
+      <tr><td data-row="3" data-col="0">O</td><td data-row="3" data-col="1">H</td><td data-row="3" data-col="2">U</td><td data-row="3" data-col="3">O</td><td data-row="3" data-col="4">Y</td><td data-row="3" data-col="5">H</td><td data-row="3" data-col="6">F</td><td data-row="3" data-col="7">S</td><td data-row="3" data-col="8">B</td><td data-row="3" data-col="9">H</td><td data-row="3" data-col="10">V</td><td data-row="3" data-col="11">R</td></tr>
+      <tr><td data-row="4" data-col="0">R</td><td data-row="4" data-col="1">O</td><td data-row="4" data-col="2">O</td><td data-row="4" data-col="3">I</td><td data-row="4" data-col="4">U</td><td data-row="4" data-col="5">K</td><td data-row="4" data-col="6">O</td><td data-row="4" data-col="7">G</td><td data-row="4" data-col="8">D</td><td data-row="4" data-col="9">Y</td><td data-row="4" data-col="10">M</td><td data-row="4" data-col="11">E</td></tr>
+      <tr><td data-row="5" data-col="0">N</td><td data-row="5" data-col="1">O</td><td data-row="5" data-col="2">L</td><td data-row="5" data-col="3">L</td><td data-row="5" data-col="4">A</td><td data-row="5" data-col="5">D</td><td data-row="5" data-col="6">R</td><td data-row="5" data-col="7">E</td><td data-row="5" data-col="8">S</td><td data-row="5" data-col="9">S</td><td data-row="5" data-col="10">E</td><td data-row="5" data-col="11">D</td></tr>
+      <tr><td data-row="6" data-col="0">I</td><td data-row="6" data-col="1">L</td><td data-row="6" data-col="2">W</td><td data-row="6" data-col="3">E</td><td data-row="6" data-col="4">B</td><td data-row="6" data-col="5">I</td><td data-row="6" data-col="6">E</td><td data-row="6" data-col="7">R</td><td data-row="6" data-col="8">S</td><td data-row="6" data-col="9">U</td><td data-row="6" data-col="10">F</td><td data-row="6" data-col="11">F</td></tr>
+      <tr><td data-row="7" data-col="0">N</td><td data-row="7" data-col="1">D</td><td data-row="7" data-col="2">R</td><td data-row="7" data-col="3">T</td><td data-row="7" data-col="4">A</td><td data-row="7" data-col="5">R</td><td data-row="7" data-col="6">H</td><td data-row="7" data-col="7">Y</td><td data-row="7" data-col="8">U</td><td data-row="7" data-col="9">R</td><td data-row="7" data-col="10">Y</td><td data-row="7" data-col="11">Z</td></tr>
+      <tr><td data-row="8" data-col="0">G</td><td data-row="8" data-col="1">B</td><td data-row="8" data-col="2">V</td><td data-row="8" data-col="3">H</td><td data-row="8" data-col="4">E</td><td data-row="8" data-col="5">T</td><td data-row="8" data-col="6">U</td><td data-row="8" data-col="7">A</td><td data-row="8" data-col="8">Q</td><td data-row="8" data-col="9">U</td><td data-row="8" data-col="10">T</td><td data-row="8" data-col="11">F</td></tr>
+      <tr><td data-row="9" data-col="0">V</td><td data-row="9" data-col="1">U</td><td data-row="9" data-col="2">X</td><td data-row="9" data-col="3">K</td><td data-row="9" data-col="4">E</td><td data-row="9" data-col="5">F</td><td data-row="9" data-col="6">J</td><td data-row="9" data-col="7">S</td><td data-row="9" data-col="8">N</td><td data-row="9" data-col="9">X</td><td data-row="9" data-col="10">F</td><td data-row="9" data-col="11">A</td></tr>
+      <tr><td data-row="10" data-col="0">X</td><td data-row="10" data-col="1">Q</td><td data-row="10" data-col="2">A</td><td data-row="10" data-col="3">E</td><td data-row="10" data-col="4">G</td><td data-row="10" data-col="5">Z</td><td data-row="10" data-col="6">T</td><td data-row="10" data-col="7">V</td><td data-row="10" data-col="8">H</td><td data-row="10" data-col="9">C</td><td data-row="10" data-col="10">G</td><td data-row="10" data-col="11">A</td></tr>
+      <tr><td data-row="11" data-col="0">J</td><td data-row="11" data-col="1">W</td><td data-row="11" data-col="2">T</td><td data-row="11" data-col="3">I</td><td data-row="11" data-col="4">V</td><td data-row="11" data-col="5">R</td><td data-row="11" data-col="6">O</td><td data-row="11" data-col="7">U</td><td data-row="11" data-col="8">T</td><td data-row="11" data-col="9">I</td><td data-row="11" data-col="10">N</td><td data-row="11" data-col="11">E</td></tr>
+    </tbody>
+  </table>
+
+  <div class="panel">
+    <strong>Words to find:</strong>
+    <ul class="word-list" id="wordList">
+      <li data-word="breakfast">breakfast</li>
+      <li data-word="shower">shower</li>
+      <li data-word="shoes">shoes</li>
+      <li data-word="school">school</li>
+      <li data-word="wake">wake</li>
+      <li data-word="toilet">toilet</li>
+      <li data-word="teeth">teeth</li>
+      <li data-word="morning">morning</li>
+      <li data-word="brush">brush</li>
+      <li data-word="routine">routine</li>
+      <li data-word="hair">hair</li>
+      <li data-word="dressed">dressed</li>
+      <li data-word="bath">bath</li>
+    </ul>
+    <div>
+      <button id="btnCheckWords">Check words</button>
+      <button id="btnShow" class="secondary">Show answers</button>
+      <button id="btnHide" class="secondary">Hide answers</button>
+      <button id="btnClear" class="secondary">Clear selection</button>
+    </div>
+  </div>
+
+  <h2 class="section-title">Part 2 – Writing (ONLY FIRST PERSON “I”)</h2>
+
+  <p class="instructions">
+    Escribe <strong>5 oraciones en primera persona</strong> usando <strong>I</strong> (present simple).  
+    <br>
+    <span class="mini-title">Cómo construir una oración (paso a paso):</span><br><br>
+
+    <strong>Ejemplo 1 – Oración sobre la hora en que me levanto:</strong><br>
+    1) Sujeto: <em>I</em><br>
+    2) Verbo (acción en infinitivo sin “to”): <em>wake up</em><br>
+    3) Complemento de tiempo: <em>at 7:00 a.m.</em><br>
+    4) Frecuencia (opcional): <em>every day</em><br>
+    ➜ Oración completa: <em>I wake up at 7:00 a.m. every day.</em><br><br>
+
+    <strong>Ejemplo 2 – Oración sobre el desayuno:</strong><br>
+    1) Sujeto: <em>I</em><br>
+    2) Verbo: <em>eat</em><br>
+    3) Qué como: <em>breakfast</em><br>
+    4) Con quién o dónde (opcional): <em>with my family</em><br>
+    5) Momento del día (opcional): <em>in the morning</em><br>
+    ➜ Oración completa: <em>I eat breakfast with my family in the morning.</em><br><br>
+
+    <div class="formula">
+      <strong>Fórmula básica:</strong><br>
+      <em>I + verb (base form) + complement + time expression</em><br>
+      Ejemplo: <em>I brush my teeth every morning.</em>
+    </div>
+  </p>
+
+  <textarea id="sentencesInput" placeholder="Write your 5 sentences here..."></textarea>
+
+  <button id="btnCheckSentences" style="margin-top:10px;">Check my sentences</button>
+
+  <div id="results" class="results"></div>
+
+</div>
+
+<script>
+  // --- WORD GRID LOGIC ---
+  const cells = document.querySelectorAll('.word-grid td');
+  cells.forEach(c => {
+    c.addEventListener('click', () => {
+      c.classList.toggle('selected');
+    });
+  });
+
+  const wordPaths = {
+    breakfast: [
+      {row:8, col:1},{row:7, col:2},{row:6, col:3},
+      {row:5, col:4},{row:4, col:5},{row:3, col:6},
+      {row:2, col:7},{row:1, col:8},{row:0, col:9}
+    ],
+    shower: [
+      {row:0, col:0},{row:0, col:1},{row:0, col:2},
+      {row:0, col:3},{row:0, col:4},{row:0, col:5}
+    ],
+    shoes: [
+      {row:2, col:4},{row:3, col:5},{row:4, col:6},
+      {row:5, col:7},{row:6, col:8}
+    ],
+    school: [
+      {row:1, col:1},{row:2, col:1},{row:3, col:1},
+      {row:4, col:1},{row:5, col:1},{row:6, col:1}
+    ],
+    wake: [
+      {row:11, col:1},{row:10, col:2},{row:9, col:3},{row:8, col:4}
+    ],
+    toilet: [
+      {row:2, col:3},{row:3, col:3},{row:4, col:3},
+      {row:5, col:3},{row:6, col:3},{row:7, col:3}
+    ],
+    teeth: [
+      {row:11, col:2},{row:10, col:3},{row:9, col:4},
+      {row:8, col:5},{row:7, col:6}
+    ],
+    morning: [
+      {row:2, col:0},{row:3, col:0},{row:4, col:0},
+      {row:5, col:0},{row:6, col:0},{row:7, col:0},{row:8, col:0}
+    ],
+    brush: [
+      {row:6, col:4},{row:7, col:5},{row:8, col:6},
+      {row:9, col:7},{row:10, col:8}
+    ],
+    routine: [
+      {row:11, col:5},{row:11, col:6},{row:11, col:7},
+      {row:11, col:8},{row:11, col:9},{row:11, col:10},{row:11, col:11}
+    ],
+    hair: [
+      {row:8, col:3},{row:7, col:4},{row:6, col:5},{row:5, col:6}
+    ],
+    dressed: [
+      {row:5, col:5},{row:5, col:6},{row:5, col:7},
+      {row:5, col:8},{row:5, col:9},{row:5, col:10},{row:5, col:11}
+    ],
+    bath: [
+      {row:0, col:7},{row:0, col:8},{row:0, col:9},{row:0, col:10}
+    ]
+  };
+
+  function getCell(row, col) {
+    return document.querySelector(`.word-grid td[data-row="${row}"][data-col="${col}"]`);
+  }
+
+  function markSolutions(showAll) {
+    Object.keys(wordPaths).forEach(word => {
+      const path = wordPaths[word];
+      const li = document.querySelector('.word-list li[data-word="'+word+'"]');
+      if (showAll) {
+        path.forEach(p => {
+          const cell = getCell(p.row, p.col);
+          if (cell) cell.classList.add('solution');
+        });
+        if (li) li.classList.add('found');
+      } else {
+        path.forEach(p => {
+          const cell = getCell(p.row, p.col);
+          if (cell) cell.classList.remove('solution');
+        });
+        if (li) li.classList.remove('found');
+      }
+    });
+  }
+
+  function checkWords() {
+    Object.keys(wordPaths).forEach(word => {
+      const path = wordPaths[word];
+      const li = document.querySelector('.word-list li[data-word="'+word+'"]');
+      let allSelected = true;
+      path.forEach(p => {
+        const cell = getCell(p.row, p.col);
+        if (!cell || !cell.classList.contains('selected')) {
+          allSelected = false;
+        }
+      });
+      if (allSelected) {
+        path.forEach(p => {
+          const cell = getCell(p.row, p.col);
+          if (cell) cell.classList.add('solution');
+        });
+        if (li) li.classList.add('found');
+      }
+    });
+  }
+
+  document.getElementById('btnCheckWords').onclick = checkWords;
+  document.getElementById('btnShow').onclick = () => markSolutions(true);
+  document.getElementById('btnHide').onclick = () => markSolutions(false);
+  document.getElementById('btnClear').onclick = () => {
+    document.querySelectorAll('.selected').forEach(c => c.classList.remove('selected'));
+  };
+
+  // --- WRITING CHECKER ---
+  function checkSentence(s) {
+    let fb = [];
+    const original = s.trim();
+    if (!original) return {ok:false, fb:["Write a sentence."]};
+
+    if (!original.toLowerCase().startsWith("i ")) fb.push("Use ONLY first person: start with “I …”.");
+    if (!/[.?!]$/.test(original)) fb.push("Add a period at the end.");
+    if (original[0] !== original[0].toUpperCase()) fb.push("Start with a capital I.");
+    if (/(he|she|it)\b/i.test(original)) fb.push("Do not use he/she/it. Only I.");
+    if (/\b(am|is|are)\s+\w+ing\b/i.test(original)) fb.push("Use present simple, not present continuous.");
+
+    const ok = fb.length === 0;
+    if (ok) fb.push("Correct use of first person present simple. ✅");
+    return {ok, fb};
+  }
+
+  document.getElementById("btnCheckSentences").onclick = function(){
+    const lines = document.getElementById("sentencesInput").value.split("\n");
+    const results = document.getElementById("results");
+    results.innerHTML = "";
+    let count = 0;
+
+    lines.forEach((l) => {
+      if (l.trim() && count < 5) {
+        count++;
+        const check = checkSentence(l);
+        const div = document.createElement("div");
+        div.className = "result-item " + (check.ok ? "good" : "bad");
+        div.innerHTML = `<strong>${count}) ${l}</strong><br>` + check.fb.map(x => "• " + x).join("<br>");
+        results.appendChild(div);
+      }
+    });
+
+    if (count === 0) {
+      results.innerHTML = "<p>Please write at least one sentence.</p>";
+    }
+  };
+</script>
+
+</body>
+</html>
